@@ -49,12 +49,13 @@ href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
 <p>This is an incomplete list of important modules:</p>
  <ul>
     <li><a href="http://search.cpan.org/dist/RDF-Trine/">RDF::Trine</a>. De facto standard low-level API, also containing parsers, serializers, etc.</li>
-    <li><a href="http://search.cpan.org/dist/RDF-Query/">RDF::Query</a>. First complete SPARQL 1.1 implementation.</li>    
+    <li><a href="http://search.cpan.org/dist/RDF-Query/">RDF::Query</a>. SPARQL 1.1 Query implementation. Also includes support for SPARQL 1.0 Query and 1.1 Update.</li>
     <li><a href="http://search.cpan.org/dist/RDF-Query-Client/">RDF::Query::Client</a>. Use RDF::Trine API against remote SPARQL servers.</li>
-    <li><a href="http://search.cpan.org/dist/Redland/">RDF::Redland</a>. Interface to the C-based Redland library.</li>
+    <li>RDF::Redland. Interface to the C-based Redland library. The CPAN version of this module is out of date. Use the <a href="http://librdf.org/bindings/">redland-bindings</a> package instead.</li>
     <li><a href="http://search.cpan.org/dist/Test-RDF/">Test::RDF</a>. Test RDF data for validity and equality.</li>
 
     <li><a href="http://search.cpan.org/dist/RDF-TrineShortcuts/">RDF::TrineShortcuts</a>. Command-line RDF tools, parts of a high-level API.</li>
+    <li><a href="http://search.cpan.org/dist/RDF-TriN3/">RDF::TriN3</a>. Notation 3 extensions for RDF::Trine.</li>
 
     <li><a href="http://search.cpan.org/dist/Web-Scraper/">Web::Scraper</a>. Toolkit using HTML and CSS Selectors or XPath expressions.</li>
     <li><a href="http://search.cpan.org/dist/RDF-Endpoint/">RDF::Endpoint</a>. Easy setup SPARQL 1.1 Endpoint.</li>
@@ -85,13 +86,6 @@ href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
 </ul -->
 
 <!-- 
-<h2>Downloads</h2>
-
-<ul>
-	<li><a href="RDF-Base-v0.0.1.tar.gz">RDF-Base-v0.0.1.tar.gz</a></li>
-	<li><a href="RDF-Storage-DBI-v0.0.1.tar.gz">RDF-Storage-DBI-v0.0.1.tar.gz</a></li>
-</ul>
-
 <h2>Initial Thoughts</h2>
 
 <p>
