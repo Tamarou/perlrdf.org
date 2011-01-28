@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Working with RDF with Perl</title>
+	<style type="text/css">
+		table {
+			border: 1px solid #000;
+			border-collapse: collapse;
+		}
+		
+		th.title {
+			background-color: #aaa;
+		}
+		
+		th {
+			background-color: #ccc;
+			border: 1px solid #000;
+		}
+		
+		td {
+			border: 1px solid #000;
+			padding: 0 20px 0 5px;
+		}
+		
+	</style>
+</head>
+<body>
+<h1>Perl and RDF</h1>
+
+
+<!-- h2>Perl RDF</h2 -->
+
+<p>The Perl RDF project hopes to address these issues:</p>
+
+<ol>
+	<li>Publish an official API for storage, parsing and serializing modules.</li>
+	<li>Produce a set of base classes for representing common RDF objects such as statements and nodes (resources, literals, blank nodes).</li>
+	<li>Produce patches to existing RDF tools to support these APIs, subclassing where appropriate.</li>
+	<li>Produce a test suite for storage, parsing, serializing, statement and node classes.</li>
+</ol>
+
+<p>Please subscribe to the <a
+href="http://lists.perlrdf.org/listinfo/dev">perlrdf mailing-list</a>
+and get in touch! There is also an <a
+href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
+
+<p>This is an incomplete list of important modules:</p>
+ <ul>
+    <li><a href="http://search.cpan.org/dist/RDF-Trine/">RDF::Trine</a>. De facto standard low-level API, also containing parsers, serializers, etc.</li>
+    <li><a href="http://search.cpan.org/dist/RDF-Query/">RDF::Query</a>. First complete SPARQL 1.1 implementation.</li>    
+    <li><a href="http://search.cpan.org/dist/RDF-Query-Client/">RDF::Query::Client</a>. Use RDF::Trine API against remote SPARQL servers.</li>
+    <li><a href="http://search.cpan.org/dist/Redland/">RDF::Redland</a>. Interface to the C-based Redland library.</li>
+    <li><a href="http://search.cpan.org/dist/Test-RDF/">Test::RDF</a>. Test RDF data for validity and equality.</li>
+
+    <li><a href="http://search.cpan.org/dist/RDF-TrineShortcuts/">RDF::TrineShortcuts</a>. Command-line RDF tools, parts of a high-level API.</li>
+
+    <li><a href="http://search.cpan.org/dist/Web-Scraper/">Web::Scraper</a>. Toolkit using HTML and CSS Selectors or XPath expressions.</li>
+    <li><a href="http://search.cpan.org/dist/RDF-Endpoint/">RDF::Endpoint</a>. Easy setup SPARQL 1.1 Endpoint.</li>
+    <li><a href="http://search.cpan.org/dist/RDF-LinkedData/">RDF::LinkedData</a>. Easy setup Linked Data server conforming to best practices.</li>
+    <li><a href="http://search.cpan.org/dist/RDF-RDFa-Parser/">RDF::RDFa::Parser</a>. RDFa parser.</li>
+    <li><a href="http://search.cpan.org/dist/CGI-Auth-FOAF_SSL/">CGI::Auth::FOAF_SSL</a>. FOAF+SSL support (WebID-protocol).</li>
+    <li><a href="http://search.cpan.org/dist/RDF-ACL/">RDF::ACL</a>. Access Control Lists based on WebIDs.</li>
+    <li><a href="http://search.cpan.org/dist/XML-GRDDL/">XML::GRDDL</a>, <a href="http://search.cpan.org/dist/HTML-Microformats/">HTML::Microformats</a>, <a href="http://search.cpan.org/dist/HTML-HTML5-Microdata-Parser/">HTML::HTML5::Microdata::Parser</a> all give RDF::Trine models.</li>
+  </ul>
+
+  <p>
+    And many more of differing relevance and maturity.
+  </p>
+
+  <p>
+  There is also the slides of a 15-minute <a
+  href="http://www.perlrdf.org/slides/perlrdf-intro.xhtml">introduction</a>.
+  </p>
+  
+<!-- ul>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Helper/">RDF::Helper</a> - Provide a consistent, Perlish interface to Perl's varous RDF processing tools</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Query/">RDF::Query</a> - SPARQL query engine based on RDF::Trine, RDF::Redland or RDF::Core</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-RDFa-Parser/">RDF::RDFa::Parser</a> - RDFa parser using XML::LibXML</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Redland/">RDF::Redland</a> - RDF triplestore and query engine based on the Redland C library</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Scutter/">RDF::Scutter</a> - Web crawler for harvesting distributed RDF resources</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Trine/">RDF::Trine</a> - RDF parsers, serializers, triplestore (primarily based on DBI)</p></li>
+	<li><p><a href="http://search.cpan.org/dist/RDF-Core/">RDF::Core</a> - RDF triplestore (postgresql, DB_File, and in-memory), RDF/XML parser and serializer</p></li>
+</ul -->
+
+<!-- 
+<h2>Downloads</h2>
+
+<ul>
+	<li><a href="RDF-Base-v0.0.1.tar.gz">RDF-Base-v0.0.1.tar.gz</a></li>
+	<li><a href="RDF-Storage-DBI-v0.0.1.tar.gz">RDF-Storage-DBI-v0.0.1.tar.gz</a></li>
+</ul>
+
+<h2>Initial Thoughts</h2>
+
+<p>
+	Ideally, RDF::Base should be a generic class that will let programmers interact
+	with an RDF model without needing to know the specifics of which RDF backend
+	classes are being used. Similar to the XML::SAX interface, using RDF::Base
+	should provide an API for creating and interacting with an RDF model. The model
+	constructor may take optional arguments that specify how persistance (for example)
+	should be handled. This may take the form of requesting a generic storage type
+	(memory-based, file-based) or specifying a specific storage backend (MySQL-based).
+</p>
+
+<h2>Storage APIs for RDF</h2>
+
+	<p>Existing storage classes for RDF, provided by the RDF::Redland and
+	RDF::Core modules, provide very rudimentary methods for accessing RDF data.
+	In general, these methods provide access to:</p>
+
+	<ul>
+		<li>RDF statements based on the nodes that make up the statement</li>
+		<li>RDF nodes based on the node's presence in an RDF statement</li>
+	</ul>
+	
+	<p>Examples of the first are:</p>
+	
+	<ul>
+		<li><code>getStmts( $subject, $predicate, $object )</code> (from RDF::Core)</li>
+		<li><code>find_statements( $statement )</code> (from RDF::Redland)</li>
+	</ul>
+	
+	<p>An example of the second is:</p>
+		
+	<ul>
+		<li><code>target( $subject, $predicate )</code> (from RDF::Redland)</li>
+	</ul>
+	
+	<p>These methods provide sufficient access to all the data in the RDF model
+	(ignoring provenance/context data for the moment). However, the simplicity
+	of these methods can lead to unneccessary overhead when used for
+	implementing complex querying of the RDF model. This is true for several
+	reasons:</p>
+	
+	<ol>
+		<li>The overhead involved in making many calls to these methods can
+			overwhelm the total run-time if the underlying storage engine is
+			sufficiently responsive.</li>
+		<li>The lack of contextual information regarding the current query
+			means that the underlying storage engine may not be able to access
+			the RDF data in an optimal way. For example, if the query includes
+			an ordering clause and the underlying storage engine is a relational
+			database, it may be much more efficient to let the database sort
+			the results with an "ORDER BY" clause instead of doing the sorting
+			in perl.</li>
+	</ol>
+
+	<p>With the importance of complex query growing (expecially with SPARQL),
+	and with the potential for inter-network querying where the latency of each
+	storage query makes optimization important, there is a need for an RDF
+	storage API that provides more than just statement-level access. Such an API
+	should allow simple storage classes to provide just the statement-level
+	access methods where nothing would be gained by more complexity. However,
+	where the underlying storage engine has the ability to execute semi-complex
+	statement and node queries, these features should be exposed through the
+	API.</p>
+
+
+
+
+
+
+<h2>The State of Parsing and Serializing RDF</h2>
+
+	<p>There are very few modules that parse and serialize RDF in Perl:</p>
+	
+	<ul>
+		<li>RDF::Core</li>
+		<li>RDF::Redland</li>
+		<li>RDF::Simple</li>
+		<li>RDF::YAML (uses the RDF::Simple API with additional methods)</li>
+	</ul>
+	
+	<p>Each of these has a different way of parsing and serializing RDF data, and
+	none of these modules documents an official public API. In the one case where
+	a seperate package attempted to use a non-public API (RDF::YAML), changes to
+	the underlying RDF::Simple code broke API compatibility (as of RDF::Simple
+	version 0.3 on 18 Apr 2006) resulting in RDF::YAML now serializing RDF/XML
+	instead of YAML. Exacerbating this problem is the lack of good regression tests
+	in any of these packages. RDF::YAML has tests, but they were insufficient to
+	catch the complete breakdown of the serialization code. RDF::Core lacks any test
+	suite whatsoever (despite regression tests being submitted alongside bugfixes to
+	the RDF::Core maintainers).</p>
+	
+	<p>The state of Perl RDF is unfortunate as it prevents shared effort on
+	parsing and serializing code. Moreover, the lack of any offical API discourages
+	independant work on parsing or serializing modules, as any effort put into
+	releasing such modules to the CPAN would be susceptible to the underlying
+	modules breaking compatability. Finally, by not supporting an extensible API
+	for these modules, packages such as RDF::Core and RDF::Simple lack the ability
+	to transparently support new serialization formats without extra work by
+	application programmers.</p>
+	
+	<table>
+		<tr><th class="title" colspan="4">Parsing</th></td>
+		<tr>
+			<th>Package</th>
+			<th>from string</th>
+			<th>from file</th>
+			<th>Comments</th>
+		</tr>
+		<tr>
+			<td>RDF::Core</td>
+			<td>parse (public, private)</td>
+			<td>parse (public, private), parseFile (private)</td>
+			<td>Calls to parse() are dispatched based on %opts parameters passed to constructor.</td>
+		</tr>
+		<tr>
+			<td>RDF::Redland</td>
+			<td>parse_string_as_stream, parse_string_into_model</td>
+			<td>parse_as_stream, parse_into_model</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>RDF::Simple</td>
+			<td>parse_rdf</td>
+			<td>parse_uri</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>RDF::YAML</td>
+			<td>parse_rdf, parse_string</td>
+			<td>parse_file</td>
+			<td></td>
+		</tr>
+	
+	
+		<tr><th class="title" colspan="4">Serializing</th></td>
+		<tr>
+			<th>Package</th>
+			<th>to string</th>
+			<th>to file</th>
+			<th>Comments</th>
+		</tr>
+		<tr>
+			<td>RDF::Core</td>
+			<td>serialize</td>
+			<td>serialize</td>
+			<td>Calls to serialize() are dispatched based on %opts parameters passed to constructor.</td>
+		</tr>
+		<tr>
+			<td>RDF::Redland</td>
+			<td>serialize_model_to_string</td>
+			<td>serialize_model_to_file</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>RDF::Simple</td>
+			<td>serialise</td>
+			<td>-</td>
+			<td>Uses British "serialise" (with 's'). "serialize" works as an alias.</td>
+		</tr>
+		<tr>
+			<td>RDF::YAML</td>
+			<td>serialise</td>
+			<td>-</td>
+			<td>Uses British "serialise" (with 's'). "serialize" works as an alias.</td>
+		</tr>
+	</table>
+ -->
+
+</body></html>

@@ -1,0 +1,36 @@
+@prefix ng: <no-geo-vokab#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<http://localhost:3000/matrikkel/6> a ng:Fylke ;
+    ng:fylkenr 6;
+    gn:officialName "Buskerud"@no ;
+    gn:officialName "Buskerud"@se ;
+    gn:officialName "Buskerud"@fkv ;
+    owl:sameAs <http://sws.geonames.org/3159665/> ;
+    gn:childrenFeatures <http://localhost:3000/matrikkel/6/627> .
+
+<http://localhost:3000/matrikkel/6/627> a ng:Kommune ;    
+    ng:fylkenr 6 ;
+    ng:kommunenr 627 ;
+    gn:officialName "Røyken"@no ;
+    gn:officialName "Røyken"@se ;
+    gn:officialName "Røyken"@fkv ;
+    ng:postnummer 3430, 3431, 3440, 3441, 3470; 
+    owl:sameAs <http://sws.geonames.org/3141104/> ;
+    gn:parentFeature <http://localhost:3000/matrikkel/6> .
+
+<http://localhost:3000/matrikkel/6/627/12> a ng:Gard ;    
+    ng:fylkenr 6 ;
+    ng:kommunenr 627 ;
+    ng:gnr 12 ;
+    gn:parentFeature <http://localhost:3000/matrikkel/6/627> .
+
+<http://localhost:3000/matrikkel/6/627/12/90> a ng:Bruk ;    
+    ng:fylkenr 6 ;
+    ng:kommunenr 627 ;
+    ng:gardsnr 12 ;
+    ng:bruksnr 90 ;
+    ng:postnummer 1389 ;
+    gn:parentFeature <http://localhost:3000/matrikkel/6/627/12> .
+
