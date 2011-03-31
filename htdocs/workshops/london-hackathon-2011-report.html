@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Report from the First Hacking RDF with Perl Hackathon</title>
+	<style type="text/css">
+
+	  div.text {
+	    margins: 1em;
+	    float:left;
+            width:70%;
+	    max-width: 42em;
+	    text-align: justify;
+	  }
+	  div#sponsors {
+	    float:right;
+	    width:25%;
+	  }
+	    
+		table {
+			border: 1px solid #000;
+			border-collapse: collapse;
+		}
+		
+		th.title {
+			background-color: #aaa;
+		}
+		
+		th {
+			background-color: #ccc;
+			border: 1px solid #000;
+		}
+		
+		td {
+			border: 1px solid #000;
+			padding: 0 20px 0 5px;
+		}
+		
+		dt {
+		  font-family : monospace
+		}
+	</style>
+</head>
+<body>
+
+<div class="content">
+
+<h1>Report from the First International Hacking Semantic Web with Perl Hackathon</h1>
+
+<p>Held at the London Hackspace from the 27th to the 30th of March 2011.</p>
+
+<div class="text">
+
+<h2>Participants and what they focused on</h2>
+
+<p>Dmitry Tsarkov and Toby Inkster worked mostly on adding reasoning
+capabilities to the Perl stack.</p>
+
+<p>Gregory Todd Williams, Mischa Tuffield and Robert Barta worked on
+query engines mostly.</p>
+
+<p>Florian Ragwitz made a great contribution to the above by providing
+his XS-expertise, which was instrumental in getting the Perl layer
+working with the C layer.</p>
+
+<p>Chris Prather and Espen Borgen made a major refactoring of
+RDF::Helper to resurrect it from the dead.</p>
+
+<p>Finally, Kjetil Kjernsmo, worked on configuration systems, testing,
+and generally roaming around, coordinating and organizing the
+hackathon.</p>
+
+<h2>Areas of development</h2>
+
+<h3>Reasoning</h3>
+
+<p>
+The main goals of this activity was to enable reasoning engines to be
+used from Perl. To this end, we wanted to have a pure-perl reasoner,
+now known as RDF::Closure, and the possibility to call the C++-based
+reasoner FaCT++ from Perl. This was achieved by FaCT++ getting a C API
+that can be used through an XS bridge. Further, an implementation of
+OWL Functional Syntax was made on both sides to achieve integration.
+</p>
+
+<h3>High-level API</h3>
+
+<p>
+RDF::Helper was written by Kip Hampton and Mike Nachbaur (neither of
+whom could make it) in 2004-2006 to provide a consistent and more
+Perlish API towards the various toolsets that existed at the
+time. Meanwhile, RDF::Trine solved half of the problems that
+RDF::Helper set out to solve.
+</p>
+
+<p>
+It was decided to drop the goal of integration across toolsets, and
+rather concentrate the effort on RDF::Helper being a high-level API on
+the top of RDF::Trine. The RDF::Redland was nevertheless retained to
+be able to confirm that all tests passed also after the major
+refactoring.
+</p>
+
+<p>
+Moose was used in the refactoring, and RDF::Helper itself is now an
+interesting example on how to refactor an old module to use Moose,
+while retaining the old API.
+</p>
+<p>
+RDF::Helper is now in a releasable state, pending upload to CPAN. It
+now uses Dist::Zilla for the packaging.
+</p>
+<p>
+Finally, work to bring Class::OWL onto the new RDF::Helper, also
+keeping in mind that Class::MOP has changed underneath it so that
+larger changes are required. It was decided that more work on OWL
+Direct Semantics is also needed to understand how this should be done.
+</p>
+
+<h3>Store integration work</h3>
+<p>
+A major goal of the hackathon was to integrate RDF::Trine and
+RDF::Query with other quad store backends. The emphasis was on 4store
+and AllegroGraph, since they were represented by people close to the
+code.
+</p>
+
+<p>
+Originally, RDF::Query decomposed an incoming SPARQL query into
+algebra object, which was passed to a query planner for execution
+using RDF::Trine's API. It was decided that it should be able for a
+backend store to signal to RDF::Trine that it was willing to deal with
+the whole query execution process itself, and so that RDF::Query would
+not attempt to parse the query, but rather send the whole query down
+to the backend. Yet, the functionality provided by RDF::Trine should
+be supported as well.
+</p>
+
+<h4>AllegroGraph</h4>
+<p>
+AllegroGraph takes advantage of this bypass-behaviour of RDF::Trine,
+and a new RDF::Trine::Store::AllegroGraph is now ready for release,
+pending the release of RDF::Trine. This is to be considered a public
+beta, as some more work is required to make it completely usable for
+mainstream usage.
+</p>
+
+<h4>4store</h4>
+
+<p>
+A lot of work was done on 4store internals to make integration
+possible. Like AllegroGraph, 4store also takes advantage of the
+bypass-behaviour. 4store is now packaged using autoconf and it exposes
+a C API, which is something that was created during the
+hackathon. Code is also written to use this C API from RDF::Trine. To
+get this into a releaseable state, more coordination is needed with
+the core 4store developers, but the required programming time is down
+to a few hours. When this is done, and 4store has gone through the
+Garlik QA process, a new 4store release is expected, and then a new
+RDF::Trine::Store::FourStore release will be done. 
+</p>
+
+<h4>Testing</h4>
+
+<p>
+Code to test stores have previously been confined to individual test
+cases, but since they are common to many different stores, they will
+be available in the RDF::Trine distribution as a new module
+Test::RDF::Trine::Store which can be called as old-style functions to
+test any store, and give a fair impression of whether the driver works
+as expected.
+</p>
+
+<h3>Configuration system evaluation</h3>
+
+<p>
+The configuration system has two issues we wanted to resolve: First,
+field keys, were inconsistent, e.g. the base URI was denoted
+<tt>base</tt> in some applications, and <tt>base_uri</tt> in
+others. In addition, some users had expressed concerns with the long
+dependency chain of Config::JFDI, which is used.
+</p>
+
+<p>
+A survey was made to see if any alternatives would fulfil all the
+requirements, of being able to merge different configuration files,
+but also use environment variables to control certain behaviour, such
+as the location of the configuration files. It was not found any other
+modules that would fully replace Config::JFDI and it was decided that
+since the dependencies are rather common modules, it should not be a
+concern great enough to warrant spending a lot of time on for now.
+</p>
+
+<p>
+This was further resolved with regards to consistency of configuration fields:
+</p>
+<dl>
+<dt>store</dt>
+<dd>Used to configure a RDF::Trine::Store. The value of this key can
+be passed directly to the constructor.</dd>
+
+<dt>base_uri</dt>
+<dd>The base URI used to create absolute URIs from relative URIs.</dd>
+
+<dt>namespaces</dt>
+<dd>A key-value hashref containing prefixes and keys and a single
+namespace URI as value</dd>
+
+<dt>update</dt>
+<dd>A boolean value indicating whether Update operations should be
+allowed to be executed.
+</dd>
+
+<dt>load_data</dt>
+<dd>A boolean value indicating whether and RDF::Endpoint should use
+URLs that appear in FROM and FROM NAMED clauses to construct a SPARQL
+dataset by dereferencing the URLs and loading the retrieved RDF
+content.</dd>  
+
+<dt>service_description</dt>
+
+<dd>An associative array (hash) containing details on which and how
+much information to include in the service description provided by an
+endpoint if no query is included for execution. The boolean values
+'<tt>default</tt>' and '<tt>named_graphs</tt>' indicate that the
+respective SPARQL dataset graphs should be described by the service
+description.</dd>
+
+</dl>
+
+<h3>Other things</h3>
+
+<p>We also had a lengthy discussion about the RDF::Redland module, as
+it is outdated on CPAN but is important to provide better performance
+for Perl users. We also discussed if we should replace the SWIG
+interface with an XS interface, but it was decided against that. A new
+CPAN package was created, and it turned out to be quite
+straightforward.
+</p>
+
+<p>
+RDF::Endpoint is now nearing release.
+</p>
+
+<p>
+A developer release of Test::RDF was made, an ordinary release will be
+done once RDF::Trine is released.
+</p>
+
+
+<h3>What we didn't do (much)</h3>
+
+<p>
+The big Moose (which is an Meta-object-protocol-based object system)
+discussion didn't happen. That is not to say that there weren't a lot
+of Moose work being done, and that the value of migrating the rest of
+the modules weren't recognized, quite the contrary. It is already
+clear that there would be great value in migrating RDF::Trine and
+RDF::Query to Moose, and a discussion was held that made it clear that
+the diversity of RDF query engines made it desireable to have a
+Moose::Role based architecture. However, there were already so many
+important tasks to be undertaken for the integration that did happen
+on the hackathon that the detailed discussion about how we should use
+Moose to achieve more long-term goals was deferred to a later
+hackathon.
+</p>
+
+<p>
+Further work on RDF::ACL did not happen either, partly because it was
+felt that to significantly advance it, it would need more OWL, which
+was a major topic.
+
+
+</p>
+
+<h3>Conclusion</h3>
+
+<p>
+This hackathon made a real ecosystem of the Perl and Semantic Web
+community. A large amount of code was written, and many outstanding
+issues were resolved. In spite of the good digital competence of the
+participants, it is clear that such advances can only be made by
+meeting in real life.
+</p>
+<p>
+The organizer wishes to thank all the participants for their
+contribution, and for a good time. Another thanks goes to the London
+Hackspace for providing an excellent venue for the hackathon.
+</p>
+
+
+</div>
+
+<div id="sponsors">
+<h2>Sponsors</h2>
+<ul>
+<li>Platinum Sponsor: <a href="http://nuug-foundation.no/">NUUG Foundation</a></li>
+<li>Gold Sponsor: <a href="http://startsiden.no">ABC Startsiden</a></li>
+<li>Silver Sponsor: <a href="http://sesam4.net/">The SeSam4 project</a></li>
+<li>Organiser: <a href="http://multiarc.no">Multiarc</a></li>
+</ul>
+
+
+</div>
+</div>
+
+
+</body></html>
