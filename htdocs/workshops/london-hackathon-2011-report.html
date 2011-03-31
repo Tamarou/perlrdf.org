@@ -46,7 +46,7 @@
 
 <div class="content">
 
-<h1>Report from the First International Hacking Semantic Web with Perl Hackathon</h1>
+<h1>Report from the First International "Semantic Web with Perl" Hackathon</h1>
 
 <p>Held at the London Hackspace from the 27th to the 30th of March 2011.</p>
 
@@ -78,28 +78,36 @@ hackathon.</p>
 <p>
 The main goals of this activity was to enable reasoning engines to be
 used from Perl. To this end, we wanted to have a pure-perl reasoner,
-now known as RDF::Closure, and the possibility to call the C++-based
-reasoner FaCT++ from Perl. This was achieved by FaCT++ getting a C API
-that can be used through an XS bridge. Further, an implementation of
-OWL Functional Syntax was made on both sides to achieve integration.
+now known as <a
+href="http://search.cpan.org/~tobyink/RDF-Closure/">RDF::Closure</a>,
+and the possibility to call the C++-based reasoner <a
+href="http://owl.man.ac.uk/factplusplus/">FaCT++</a> from Perl. This
+was achieved by FaCT++ getting a C API that can be used through an XS
+bridge. Further, an implementation of OWL Functional Syntax was made
+on both sides to achieve integration. The new module <a
+href="http://search.cpan.org/~tobyink/OWL-DirectSemantics/">OWL::DirectSemantics</a>
+has been released with more than 2000 lines of code and 3000 lines of
+documentation.
 </p>
 
 <h3>High-level API</h3>
 
 <p>
-RDF::Helper was written by Kip Hampton and Mike Nachbaur (neither of
-whom could make it) in 2004-2006 to provide a consistent and more
-Perlish API towards the various toolsets that existed at the
-time. Meanwhile, RDF::Trine solved half of the problems that
-RDF::Helper set out to solve.
+<a href="http://search.cpan.org/dist/RDF-Helper/">RDF::Helper</a> was
+written by Kip Hampton and Mike Nachbaur (neither of whom could make
+it) in 2004-2006 to provide a consistent and more Perlish API towards
+the various toolsets that existed at the time. Meanwhile, <a
+href="http://search.cpan.org/~gwilliams/RDF-Trine/">RDF::Trine</a>
+solved half of the problems that RDF::Helper set out to solve.
 </p>
 
 <p>
 It was decided to drop the goal of integration across toolsets, and
 rather concentrate the effort on RDF::Helper being a high-level API on
-the top of RDF::Trine. The RDF::Redland was nevertheless retained to
-be able to confirm that all tests passed also after the major
-refactoring.
+the top of RDF::Trine. The <a
+href="http://search.cpan.org/dist/Redland/">RDF::Redland</a> was
+nevertheless retained to be able to confirm that all tests passed also
+after the major refactoring.
 </p>
 
 <p>
@@ -112,18 +120,21 @@ RDF::Helper is now in a releasable state, pending upload to CPAN. It
 now uses Dist::Zilla for the packaging.
 </p>
 <p>
-Finally, work to bring Class::OWL onto the new RDF::Helper, also
-keeping in mind that Class::MOP has changed underneath it so that
-larger changes are required. It was decided that more work on OWL
-Direct Semantics is also needed to understand how this should be done.
+Finally, work to bring <a
+href="http://search.cpan.org/dist/Class-OWL/">Class::OWL</a> onto the
+new RDF::Helper, also keeping in mind that Class::MOP has changed
+underneath it so that larger changes are required. It was decided that
+more work on OWL Direct Semantics is also needed to understand how
+this should be done.
 </p>
 
 <h3>Store integration work</h3>
 <p>
-A major goal of the hackathon was to integrate RDF::Trine and
-RDF::Query with other quad store backends. The emphasis was on 4store
-and AllegroGraph, since they were represented by people close to the
-code.
+A major goal of the hackathon was to integrate <a
+href="http://search.cpan.org/~gwilliams/RDF-Trine/">RDF::Trine</a> and
+<a href="http://search.cpan.org/~gwilliams/RDF-Query/">RDF::Query</a>
+with other quad store backends. The emphasis was on 4store and
+AllegroGraph, since they were represented by people close to the code.
 </p>
 
 <p>
@@ -139,26 +150,27 @@ be supported as well.
 
 <h4>AllegroGraph</h4>
 <p>
-AllegroGraph takes advantage of this bypass-behaviour of RDF::Trine,
-and a new RDF::Trine::Store::AllegroGraph is now ready for release,
-pending the release of RDF::Trine. This is to be considered a public
-beta, as some more work is required to make it completely usable for
-mainstream usage.
+<a href="http://franz.com/agraph/allegrograph/">AllegroGraph</a> takes
+advantage of this bypass-behaviour of RDF::Trine, and a new
+RDF::Trine::Store::AllegroGraph is now ready for release, pending the
+release of RDF::Trine. This is to be considered a public beta, as some
+more work is required to make it completely usable for mainstream
+usage.
 </p>
 
 <h4>4store</h4>
 
 <p>
-A lot of work was done on 4store internals to make integration
-possible. Like AllegroGraph, 4store also takes advantage of the
-bypass-behaviour. 4store is now packaged using autoconf and it exposes
-a C API, which is something that was created during the
-hackathon. Code is also written to use this C API from RDF::Trine. To
-get this into a releaseable state, more coordination is needed with
-the core 4store developers, but the required programming time is down
-to a few hours. When this is done, and 4store has gone through the
-Garlik QA process, a new 4store release is expected, and then a new
-RDF::Trine::Store::FourStore release will be done. 
+A lot of work was done on <a href="http://4store.org/">4store</a>
+internals to make integration possible. Like AllegroGraph, 4store also
+takes advantage of the bypass-behaviour. 4store is now packaged using
+autoconf and it exposes a C API, which is something that was created
+during the hackathon. Code is also written to use this C API from
+RDF::Trine. To get this into a releaseable state, more coordination is
+needed with the core 4store developers, but the required programming
+time is down to a few hours. When this is done, and 4store has gone
+through the Garlik QA process, a new 4store release is expected, and
+then a new RDF::Trine::Store::FourStore release will be done.
 </p>
 
 <h4>Testing</h4>
@@ -179,7 +191,9 @@ The configuration system has two issues we wanted to resolve: First,
 field keys, were inconsistent, e.g. the base URI was denoted
 <tt>base</tt> in some applications, and <tt>base_uri</tt> in
 others. In addition, some users had expressed concerns with the long
-dependency chain of Config::JFDI, which is used.
+dependency chain of <a
+href="http://search.cpan.org/dist/Config-JFDI/">Config::JFDI</a>,
+which is currently used.
 </p>
 
 <p>
@@ -231,7 +245,7 @@ description.</dd>
 
 <h3>Other things</h3>
 
-<p>We also had a lengthy discussion about the RDF::Redland module, as
+<p>We also had a lengthy discussion about the <a href="http://search.cpan.org/dist/Redland/">RDF::Redland</a> module, as
 it is outdated on CPAN but is important to provide better performance
 for Perl users. We also discussed if we should replace the SWIG
 interface with an XS interface, but it was decided against that. A new
@@ -252,24 +266,25 @@ done once RDF::Trine is released.
 <h3>What we didn't do (much)</h3>
 
 <p>
-The big Moose (which is an Meta-object-protocol-based object system)
-discussion didn't happen. That is not to say that there weren't a lot
-of Moose work being done, and that the value of migrating the rest of
-the modules weren't recognized, quite the contrary. It is already
-clear that there would be great value in migrating RDF::Trine and
-RDF::Query to Moose, and a discussion was held that made it clear that
-the diversity of RDF query engines made it desireable to have a
-Moose::Role based architecture. However, there were already so many
-important tasks to be undertaken for the integration that did happen
-on the hackathon that the detailed discussion about how we should use
-Moose to achieve more long-term goals was deferred to a later
-hackathon.
+The big <a href="http://moose.perl.org/">Moose</a> (which is an
+Meta-object-protocol-based object system) discussion didn't
+happen. That is not to say that there weren't a lot of Moose work
+being done, and that the value of migrating the rest of the modules
+weren't recognized, quite the contrary. It is already clear that there
+would be great value in migrating RDF::Trine and RDF::Query to Moose,
+and a discussion was held that made it clear that the diversity of RDF
+query engines made it desireable to have a Moose::Role based
+architecture. However, there were already so many important tasks to
+be undertaken for the integration that did happen on the hackathon
+that the detailed discussion about how we should use Moose to achieve
+more long-term goals was deferred to a later hackathon.
 </p>
 
 <p>
-Further work on RDF::ACL did not happen either, partly because it was
-felt that to significantly advance it, it would need more OWL, which
-was a major topic.
+Further work on <a
+href="http://search.cpan.org/~tobyink/RDF-ACL/">RDF::ACL</a> did not
+happen either, partly because it was felt that to significantly
+advance it, it would need more OWL, which was a major topic.
 
 
 </p>
