@@ -4,36 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Working with RDF with Perl</title>
-	<style type="text/css">
-		table {
-			border: 1px solid #000;
-			border-collapse: collapse;
-		}
-		
-		th.title {
-			background-color: #aaa;
-		}
-		
-		th {
-			background-color: #ccc;
-			border: 1px solid #000;
-			padding: 0.167em 0.67em 0.167em 0.67em;
-		}
-		
-		td {
-			border: 1px solid #000;
-			padding: 0.167em 0.67em 0.167em 0.33em;
-		}
-
-		td ul {
-			margin: 0;
-			padding: 0 0 0 1.67em;
-		}
-		td ul li {
-			margin: 0;
-			padding: 0.167em 0;
-		}
-	</style>
+    <link rel="stylesheet" type="text/css" href="perlrdf.css" />
 </head>
 <body>
 <h1>Perl and RDF</h1>
@@ -41,7 +12,7 @@
 <h2>Real World Meetings to get up to speed:</h2>
 <ul>
 <li>Perl and Semantic Web hackers convened in London on the 28th of March 2011 for a three-day hackathon, see the <a href="workshops/london-hackathon-2011-report.html">report</a>.</li>
-<li>There will be a <a href="http://wims.vestforsk.no/pro-hb.html">Perl Hacker's Bootcamp</a> at the <a href="http://wims.vestforsk.no/">International Conference on Web Intelligence, Mining and Semantics</a> in Sogndal, Norway. 
+<li>There was a <a href="http://wims.vestforsk.no/pro-hb.html">Perl Hacker's Bootcamp</a> at the <a href="http://wims.vestforsk.no/">International Conference on Web Intelligence, Mining and Semantics</a> in Sogndal, Norway. 
 See the <a href="slides/bootcamp-2011-overview.xhtml">slide with bootcamp contents</a>
 
 </li>
@@ -65,9 +36,9 @@ href="http://lists.perlrdf.org/listinfo/dev">perlrdf mailing-list</a>
 and get in touch! There is also an <a
 href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
 
-<p>This is an incomplete list of important modules:</p>
+<h2>Modules</h2>
 
-<table>
+<table border="0">
 	<col width="34%"/>
 	<col width="33%"/>
 	<col width="33%"/>
@@ -80,7 +51,7 @@ href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="3">And many more of differing relevance and maturity.</td>
+			<td colspan="3">...and many more of differing relevance and maturity.</td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -95,6 +66,7 @@ href="irc://irc.perl.org/perlrdf">IRC channel</a>.</p>
 					<li><a href="https://metacpan.org/release/RDF-TriN3">RDF::TriN3</a>. Extends RDF::Trine to Notation&nbsp;3 data model.</li>					
 					<li><b>RDF::Redland</b>. Interface to the C-based Redland library. The CPAN version of this module is out of date. Use the <a href="http://librdf.org/bindings">redland-bindings</a> package instead.</li>
 					<li><a href="https://metacpan.org/release/Web-Scraper">Web::Scraper</a>. Toolkit using HTML and CSS Selectors or XPath expressions.</li>
+					<li><a href="https://metacpan.org/release/RDF-Dumper">RDF::Dumper</a>. Dump RDF data objects.</li>
 				</ul>
 			</td>
 			<td valign="top">
